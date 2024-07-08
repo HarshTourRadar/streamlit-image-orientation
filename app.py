@@ -48,9 +48,7 @@ def send_openai_request(base64_image):
     response = requests.post(
         "https://api.openai.com/v1/chat/completions", headers=headers, json=payload
     )
-    json_response = response.json()
-    # return json_response.get("choices", [])[0].get("message", {}).get("content", "")
-    return json_response
+    return response.json()
 
 
 # Streamlit app
@@ -71,9 +69,7 @@ def main():
             st.write("Analyzing...")
             response = send_openai_request(base64_image)
             st.write("Analysis Result:")
-            st.json(
-                response.get("choices", [])[0].get("message", {}).get("content", "")
-            )
+            st.json(response.get("choices", [])[0])
 
 
 if __name__ == "__main__":
